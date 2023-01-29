@@ -7,7 +7,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { CENTER, TEXT} from './src/style';
-import Home1 from './src/Home1';
+import Home from './src/Home';
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
         <View style={styles.header}>
           <Text style={styles.headerText}>MORTGAGE CALCULATOR</Text>
         </View>
-        <Home1 />
+        <Home />
       </View>
     </SafeAreaView>
   );

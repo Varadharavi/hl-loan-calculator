@@ -2,7 +2,7 @@
   "expo": {
     "name": "Mortgage Calculator",
     "slug": "mortgage-calculator",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,11 +21,12 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.varadharavi.hlloancalculator"
+      "package": "com.varadharavi.mortgagecalculator"
     },
     "web": {
       "favicon": "./assets/favicon.png"

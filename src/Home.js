@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { CENTER, TEXT, BUTTON, BUTTON_TEXT } from './style';
-export default function Home1() {
+export default function Home() {
   const [loanAmount, setLoanAmount] = useState(0);
   const [interestRate, setInterestRate] = useState(0);
   const [loanTerm, setLoanTerm] = useState(0);
@@ -18,6 +13,8 @@ export default function Home1() {
   const [bgcolor, setBgColor] = useState('#09CFDE');
   const [bgcolor1, setBgColor1] = useState('#09CFDE');
   const [bgcolor2, setBgColor2] = useState('#09CFDE');
+  const [invalidYear, setInvalidYear] = useState(0);
+  const [invalidRate, setinvalidRate] = useState(0);
 
   const handleBlur = () => {
     setBgColor('gray');
@@ -45,6 +42,14 @@ export default function Home1() {
 
   const calculate = () => {
     // calculate monthly payment and total cost using loan amount, interest rate, and loan term
+    if (loanTerm > 30 || loanTerm < 1) {
+      setInvalidYear(1);
+      return;
+    }
+    if (interestRate > 30 || interestRate < 1) {
+      setinvalidRate(1);
+      return;
+    }
     const r = interestRate / 100 / 12;
     const n = loanTerm * 12;
     const monthlyPayment = (loanAmount * r * (1 + r) ** n) / ((1 + r) ** n - 1);
@@ -56,17 +61,26 @@ export default function Home1() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View
       style={{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+      <Text
+        style={{ display: invalidYear == 1 ? 'flex' : 'none', color: 'yellow', fontSize: 15, fontWeight: 'bold' }}>
+        * Tenure Should be between 1 to 30 only.
+      </Text>
+      <Text
+        style={{ display: invalidRate == 1 ? 'flex' : 'none', color: 'yellow', fontSize: 15, fontWeight: 'bold' }}>
+        Interest Rate Should be between 1 to 30 only.
+      </Text>
       <Text style={styles.headingText}>Loan Amount</Text>
       <TextInput
         style={{
           margin: 10,
-          height: 30,
+          height: 50,
           backgroundColor: bgcolor,
           width: '80%',
           color: 'black',
@@ -74,14 +88,21 @@ export default function Home1() {
         onFocus={handleFocus}
         onBlur={handleBlur}
         keyboardType="numeric"
-        onChangeText={(e) => setLoanAmount(e)}
+        placeholder="Enter Loan Amount between 1 to 10,000,000"
+        placeholderTextColor="black"
+        required={true}
+        onChangeText={(e) => {
+          setInvalidYear(0);
+          setinvalidRate(0);
+          setLoanAmount(e);
+        }}
         value={loanAmount}
       />
       <Text style={styles.headingText}>Interest Rate (%)</Text>
       <TextInput
         style={{
           margin: 10,
-          height: 30,
+          height: 50,
           backgroundColor: bgcolor1,
           width: '80%',
           color: 'black',
@@ -89,14 +110,21 @@ export default function Home1() {
         keyboardType="numeric"
         onFocus={handleFocus1}
         onBlur={handleBlur1}
-        onChangeText={(e) => setInterestRate(e)}
+        placeholder="Enter Interest rate between 1 to 30"
+        placeholderTextColor="black"
+        required={true}
+        onChangeText={(e) => {
+          setInvalidYear(0);
+          setinvalidRate(0);
+          setInterestRate(e);
+        }}
         value={interestRate}
       />
       <Text style={styles.headingText}>Tenure (Yrs)</Text>
       <TextInput
         style={{
           margin: 10,
-          height: 30,
+          height: 50,
           backgroundColor: bgcolor2,
           width: '80%',
           color: 'black',
@@ -104,7 +132,14 @@ export default function Home1() {
         keyboardType="numeric"
         onFocus={handleFocus2}
         onBlur={handleBlur2}
-        onChangeText={(e) => setLoanTerm(e)}
+        placeholder="Enter Years between 1 to 30"
+        placeholderTextColor="black"
+        required={true}
+        onChangeText={(e) => {
+          setInvalidYear(0);
+          setinvalidRate(0);
+          setLoanTerm(e);
+        }}
         value={loanTerm}
       />
       <TouchableOpacity style={styles.calculateButton} onPress={calculate}>
@@ -139,6 +174,7 @@ export default function Home1() {
         Total Cost: Rs.{totalCost}
       </Text>
     </View>
+     </TouchableWithoutFeedback>
   );
 }
 
