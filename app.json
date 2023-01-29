@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hl-loan-calculator",
-    "slug": "hl-loan-calculator",
+    "name": "Mortgage Calculator",
+    "slug": "mortgage-calculator",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -32,7 +32,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "bdf395f6-a52a-4743-8987-9d6df8493d5d"
+        "projectId": "a88166d0-1859-4c1b-b5ee-da1258014c99"
       }
     }
   }

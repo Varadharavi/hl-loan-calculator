@@ -1,26 +1,47 @@
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomePage from './src/Homepage';
-import Title from './src/Title';
+import Constants from 'expo-constants';
+import { CENTER, TEXT} from './src/style';
+import Home1 from './src/Home1';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Title />
-        <HomePage />
-      {/* <StatusBar style="auto" /> */}
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
+      <View style={styles.content}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>MORTGAGE CALCULATOR</Text>
+        </View>
+        <Home1 />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E0EDEE',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    margin: '0',
-    padding: '0',
+    flex: 1,
+    backgroundColor: '#1d2236',
+    paddingTop: Constants.statusBarHeight,
+  },
+  content: {
+    flex: 1,
+  },
+  header: {
+    ...CENTER,
+    height: 70,
+    marginBottom: 15,
+    borderBottomWidth: 5,
+    borderBottomColor: '#16192e',
+  },
+  headerText: {
+    ...TEXT,
+    fontSize: 24,
+    fontWeight: '500',
   },
 });
